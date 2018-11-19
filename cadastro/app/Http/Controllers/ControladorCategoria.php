@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Categoria;
+use App\Produto;
 
 class ControladorCategoria extends Controller
 {
@@ -64,7 +65,7 @@ class ControladorCategoria extends Controller
     {
         $cat = Categoria::find($id);
         if (isset($cat)){
-            return view('/editarcategoria', compact('cat'));
+            return view('editarcategoria', compact('cat'));
         }
             return redirect('/categorias');
     }
