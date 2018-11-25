@@ -1,4 +1,0 @@
-# Executar:
-
-composer install
-
