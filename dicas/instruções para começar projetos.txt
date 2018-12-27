@@ -1,0 +1,10 @@
+criando um site:
+
+- começa pela estrutura do site.
+- criar uma pasta app
+- depois criar uma pasta public
+- na pasta public.. colocar todos os seu assets(recursos)
+- raiz criar um arquivo bootstrap.php
+-neste arquivo serpa praticamente a configuração, onde inicializa o sistema
+- lembrar de instalar o bootstrap
+(npm init ......npm install bootstrap)

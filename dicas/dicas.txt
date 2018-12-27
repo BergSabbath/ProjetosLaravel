@@ -1,0 +1,70 @@
+pasta route
+arquivos web e api guardam as rotas que serão utilizadas no sistema.
+arquivo web : '/' a pagina mais baixa 
+
+php artisan 
+listar os comandos artisan
+
+seções com mais importancia momentanea:
+
+seção 13
+seção 17
+seção 18
+seção 23
+seção 25
+
+***preparação do ambiente laravel
+- Instalar XAMPP ou Laragon
+- instalar composer
+- instalar nodejs (para instalar o npm)
+**criando o projeto
+- composer create-project --prefer-dist laravel/laravel projetox
+**criando controladores
+php artisan make:controlador MeuControlador
+
+***preparando para o bootstrap 4
+-instalação no npm install dentro da pasta do projeto (cria o node_models))
+- package.json .. apagar o vue se nao for usar
+- resource/js/app.js apagar o vue.
+resource/sass/variables.css apagar tudo
+- executar npm run dev para compilar em dois arquivos todas as dependencias do package.json
+- na pasta views, criar uma pagina e colocar um codigo html que será o layout
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}"/>
+			// href="{{URL::to('css/app.css')}}"/>}}//
+    <meta name="csrf-token" content="{{csrf_token()}}">
+</head>
+<body>
+    <div>
+    </div>
+    <script src="{{asset('js/app.js')}}" type="text/javascript"></script>
+ 	  //src="{{URL::to('js/app.js')}}"//
+</body>
+</html>
+
+obs: sempre lembrar de colocar nos formularios @csrf
+
+**conexão com banco de dados
+arquio env.
+colocar o nome do banco de dados utilizado
+colocar o nome do banco de dados utilizado
+e houver senha . colocar  a senha do banco de dados utilizado
+
+**criando migrates
+php artisan make:migration nomedamodificação.. ex: criando_produtos
+php artisan make:migration criando_produtos --create=produtos (aki ja cria uma tabela de produtos)
+php artisan make:migration adicionar_campos --table=produtos (para adicionar campos na tabela)
+obs: criar tabelas com nomes no plural e campos no singular
+
+**criando seeder
+php artisan make:seeder ProdutosSeeder (cria o seed para inserir/remover/alterar dados no DB)
+php artisan db::seed
+
+
+**criando model
+php artisan make:model Cliente -m (Cliente o nome do modelo na pasta app, -m ja cria o migration junto)
+
+**criando controlador
+php artisan make:controller clienteContralador --resource (--resource ja cria os metodos que iremos usar..create, update, store, delete, )

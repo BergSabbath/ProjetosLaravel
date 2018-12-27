@@ -1,0 +1,12 @@
+Para reordenar a lista no MYSQL:
+-----------------------------------------
+set @autoid :=0;
+update nome_da_tabela set id = @autoid := (@autoid+1);
+alter table nome_da_tabela auto_increment = 1;
+****************************************************
+
+Para fazer a table reiniciar a contagem do 1:
+(a tabela tem que estar vazia)
+----------------------------------------------------
+alter table nome_da_tabela auto_increment = 1;
+******************************************************

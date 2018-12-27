@@ -1,0 +1,45 @@
+gitignore
+- coloca dentro do arquivo... os arquivos especificos ou extensoes que 
+não gostaria de serem expostos
+
+git stash
+- guarda modificação que ainda nao foram commitadas e podem ser chamadas futuramente 
+para commitar depois, salva na memoria 
+
+-git stash apply
+aplicará as mudanças que tinha guardado
+
+- git stash list
+list de todos os git stash que está fazendo
+
+- git stash clear
+limpa todos os stash da memoria
+
+- criar atalhos no git (comando alias)
+git config --global alias.s status
+agora ao inves de usar git status.. usa-se git s
+
+-tag (para definir as versões, usar marcadores)
+git tag -a 1.0.0 -m "Readme finalizado"
+
+-subir as tags
+git push origin master --tags
+
+mostra todas as tags
+- git tag
+
+git revert (commit)
+reverte o commit
+serve para não perder do historico as mudança feitas,
+diferente do reset que perder todas as mudanças
+
+apagar tags e branch remotos
+git tag -d 1.0.1  
+deleted tag '1.0.1' 
+porem nao sube para o repositorio
+para apagar do repositorio git push origin : 1.0.1
+dessa forma apaga no remoto.
+os mesmo comandos servem para os branch
+
+mostrar as modificações feitas
+git diff

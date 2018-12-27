@@ -1,0 +1,10 @@
+agrupamentos de rotas é muito importante para criar hierarquias de várias paginas
+exemplo: "/app"  "/app/sobre"  "/app/profile"
+
+redirecionamento de rotas:
+redirect('/pagina', '/localdoredirecionamento)
+
+forma abreviada de utilizar a rota view:
+Route::view('/hello', 'hello')/
+'/hello' é a rota.
+'hello' eh a view hello.blade.php
