@@ -2,6 +2,12 @@
 
 use App\Cliente;
 use App\Endereco;
+use App\Alimento;
+use App\Loja;
+
+Route::get('/', function(){
+    echo "funcionando";
+});
 
 Route::get('/clientes', function () {
     $clientes = Cliente::all();
@@ -82,4 +88,31 @@ Route::get('/enderecos/json', function()
     //$clientes = Cliente::all();
     $end = Endereco::with(['cliente'])->get();
     return $end->toJson();
+});
+
+
+// Textos completos	
+// loja_id
+// verdura
+// legume
+// fruta
+// cereal
+// grao
+// raiz
+
+
+Route::get('/alimentos/lojas', function(){
+
+    //$alimentos = Alimento::all();
+    $alimentos = Alimento::with(['loja'])->get();
+    foreach($alimentos as $ali){
+
+        echo $ali->loja_id.  " ";
+        echo  $ali->verdura. " ";
+        echo $ali->loja->id. " ";
+        echo $ali->loja->Cidade. " ";
+        echo $ali->loja->Estado. " ";
+        echo "<hr>";
+    }
+
 });
