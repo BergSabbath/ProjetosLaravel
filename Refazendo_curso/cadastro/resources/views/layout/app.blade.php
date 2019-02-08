@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Cadastro de Produtos</title>
+        <title>Cadastro</title>
         <link href="{{asset('css/app.css')}}" rel="stylesheet">
         <meta name="csrf-token" content="{{csrf_token()}}">
         <style>
@@ -14,7 +14,7 @@
     </head>
     <body>
         <div class="container">
-            @component('componente_navbar')
+            @component('componente_navbar',['current' => $current])
                 
             @endcomponent
             <main role="main">
