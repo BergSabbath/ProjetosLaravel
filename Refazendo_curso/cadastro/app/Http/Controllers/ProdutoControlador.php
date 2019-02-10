@@ -68,7 +68,14 @@ class ProdutoControlador extends Controller
      */
     public function edit($id)
     {
-        //
+        $cats = Categoria::all();
+        $nome = Categoria::find($id);
+        $prod = Produto::find($id);
+        if(isset($id)){
+        return view('editar_produto', compact('prod','cats','nome'));
+        }else{
+            return redirect('/produtos');
+        }
     }
 
     /**
@@ -80,7 +87,16 @@ class ProdutoControlador extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $prod = Produto::find($id);
+        if (isset($prod)){
+            $prod->categoria_id = $request->input('nomeCategoria');
+            $prod->nome = $request->input('nomeProduto');
+            $prod->estoque = $request->input('nomeEstoque');
+            $prod->preco = $request->input('nomePreco');
+            $prod->save();
+            return redirect('produtos');
+        }
+        return redirect('produtos');
     }
 
     /**
@@ -91,6 +107,11 @@ class ProdutoControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+        $prod = Produto::find($id);
+        if(isset($prod)){
+            $prod->delete();
+            return redirect('/produtos')->with('Success', 'Produto apagado com sucesso!');
+        }
+        return redirect('/produtos');
     }
 }

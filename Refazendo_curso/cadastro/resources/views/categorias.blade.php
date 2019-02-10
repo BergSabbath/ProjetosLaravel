@@ -9,7 +9,7 @@
     @if(count($cats) > 0)
         <table class="table table-bordered  table-hover">
             <thead>
-                <tr class=" table table-warning">
+                <tr class="bg-success">
                     <th>Código</th>
                     <th>Nome</th>
                     <th>Ações</th>
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 @foreach ($cats as $c)
-                <tr>
+                <tr class="table table-success">
                     <td>{{$c->id}}</td>
                     <td>{{$c->nome}}</td>
                     <td>

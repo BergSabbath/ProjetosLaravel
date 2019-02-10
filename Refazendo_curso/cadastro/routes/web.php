@@ -17,3 +17,6 @@ Route::get('/categorias/apagar/{id}','CategoriaControlador@destroy');
 Route::get('/produtos', 'ProdutoControlador@index');
 Route::get('/produtos/novo', 'ProdutoControlador@create');
 Route::post('/produtos', 'ProdutoControlador@store');
+Route::get('/produtos/editar/{id}', 'ProdutoControlador@edit');
+Route::post('/produtos/{id}', 'ProdutoControlador@update');
+Route::get('/produtos/apagar/{id}', 'ProdutoControlador@destroy');
