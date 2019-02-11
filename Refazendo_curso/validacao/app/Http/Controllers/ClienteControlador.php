@@ -15,7 +15,7 @@ class ClienteControlador extends Controller
      */
     public function index()
     {
-        $clientes = Clientes::all();
+        $clientes = Cliente::all();
         return view('clientes', compact('clientes'));
     }
 
@@ -37,7 +37,13 @@ class ClienteControlador extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente();
+        $cliente->nome = $request->input('nome');
+        $cliente->idade = $request->input('idade');
+        $cliente->endereco = $request->input('endereco');
+        $cliente->email = $request->input('email');
+        $cliente->save();
+        return redirect('/clientes');
     }
 
     /**

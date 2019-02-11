@@ -14,13 +14,13 @@
             <div class="row">
                 <div class="container col-md-8 offset-md-2">
                     <div class="card border">
-                        <div class="card-header">
+                        <div class="card-header bg-success">
                             <div class="card-title">
-                                Cadastro de Cliente
+                                <h2>Cadastro de Clientes</h2>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="/cliente" method="POST">
+                            <form action="/clientes" method="POST">
                             @csrf
                                 <div class="form-group">
                                     <label for="nome">Nome do cliente</label>
