@@ -73,7 +73,7 @@ class ControladorProduto extends Controller
      */
     public function edit($id)
     {
-        Produto::find($id);
+        
     }
 
     /**
@@ -88,7 +88,7 @@ class ControladorProduto extends Controller
         $prod = Produto::find($id);
         if(isset($prod)){
             $prod->nome = $request->input('nome');
-            $prod->preço = $request->input('preco');
+            $prod->preco = $request->input('preco');
             $prod->estoque = $request->input('estoque');
             $prod->categoria_id = $request->input('categoria_id');
             $prod->save();
