@@ -43,3 +43,53 @@ Route::get('enderecos', function(){
 
 });
 
+Route::get('/inserir', function(){
+
+    $c = new Cliente();
+    $c->nome = "kim kaphwan";
+    $c->telefone = "1258-9654";
+    $c->save();
+    
+    $e = new Endereco();
+    $e->rua = "Piauí";
+    $e->numero = 400;
+    $e->bairro = "Centro";
+    $e->cidade = "Brasilia";
+    $e->uf = "AC";
+    $e->cep = "87415-985";
+    // $e->cliente_id = $c->id;
+    $c->endereco()->save($e);
+    
+    
+    $c = new Cliente();
+    $c->nome = "Billy Kane";
+    $c->telefone = "1258-9654";
+    $c->save();
+    
+    $e = new Endereco();
+    $e->rua = "Piauí";
+    $e->numero = 400;
+    $e->bairro = "Centro";
+    $e->cidade = "Brasilia";
+    $e->uf = "AC";
+    $e->cep = "87415-985";
+    // $e->cliente_id = $c->id;
+    $c->endereco()->save($e);
+
+});
+
+Route::get('/clientes/json', function(){
+
+    // $clientes = Cliente::all(); //lazy loader
+    $clientes = Cliente::with(['endereco'])->get(); //Eager loading
+    return $clientes->toJson();
+
+});
+
+Route::get('/enderecos/json', function(){
+
+    // $clientes = Endereco::all();
+    $clientes = Endereco::with(['cliente'])->get();
+    return $clientes->toJson();
+
+});
