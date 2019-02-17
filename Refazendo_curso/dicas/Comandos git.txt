@@ -43,3 +43,6 @@ os mesmo comandos servem para os branch
 
 mostrar as modificações feitas
 git diff
+
+alterar a mensagem do commit
+git commit --amend -m "nova_mensagem"
