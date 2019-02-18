@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class UsuarioControlador extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('primeiro');
+    //pode chamar pelo nome dado ou pela classe App\Http\Middleware\PrimeiroMiddleware;
+
+    }
+    
     public function index() {
 
         return '<h3>Lista de usuários</h3>'.
