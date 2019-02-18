@@ -16,20 +16,20 @@ class ProjetosSeeder extends Seeder
             'estimativa_horas' => 200
             ]);
             
-            DB::table('projetos')->insert([
+        DB::table('projetos')->insert([
                 'nome' => 'Sistema de Bibliotecas',
                 'estimativa_horas' => 300
-                ]);
+            ]);
                 
-                DB::table('projetos')->insert([
-                    'nome' => 'Sistema de Vendas',
-                    'estimativa_horas' => 150
-                    ]);
-        
-                DB::table('projetos')->insert([
-                    'nome' => 'Novo Sistema',
-                    'estimativa_horas' => 1500
-                    ]);
-        
+        DB::table('projetos')->insert([
+            'nome' => 'Sistema de Vendas',
+            'estimativa_horas' => 150
+            ]);
+
+        DB::table('projetos')->insert([
+            'nome' => 'Novo Sistema',
+            'estimativa_horas' => 1500
+            ]);
+
     }
 }

@@ -42,12 +42,36 @@ Route::get('/projeto_desenvolvedores', function(){
 
         if(count($proj->desenvolvedores) > 0){
             echo "<ul>";
-            foreach ($proj->desenvolvedores as $key => $p) {
-                echo "<li>Nome: $p->nome | Cargo: $p->cargo | Horas por semana: ".$p->pivot->horas_semanais."</li>";
+            foreach ($proj->desenvolvedores as $key => $d) {
+                echo "<li>Nome: $d->nome | Cargo: $d->cargo | Horas por semana: ".$d->pivot->horas_semanais."</li>";
             }
             echo "</ul>";
         }
         echo "<hr>";
+    }
+
+});
+
+Route::get('/alocar', function() {//alocar os desenvolvedores
+
+    $proj = Projeto::find(4);
+
+    if(isset($proj)){
+
+        // $proj->desenvolvedores()->attach(1, ['horas_semanais' => 20]);//adicionando um
+        $proj->desenvolvedores()->attach([
+            2 => ['horas_semanais' => 30],
+            3 => ['horas_semanais' => 40], 
+        ]);//adicionando varios
+    }
+});
+
+Route::get('/desalocar', function() {// desalocar os desenvolvedores
+
+    $proj = Projeto::find(4);
+    if(isset($proj)){
+        $proj->desenvolvedores()->detach([1,2,3]);//varios ao msm tempo
+        $proj->desenvolvedores()->detach(1);//somente um
     }
 
 });

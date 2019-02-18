@@ -9,7 +9,9 @@ class Projeto extends Model
     public function desenvolvedores()
     {
 
-        return $this->belongsToMany('App\Desenvolvedor', 'alocacoes')->withPivot('horas_semanais')->withPivot('created_at');
+        return $this->belongsToMany('App\Desenvolvedor', 'alocacoes')->withPivot('horas_semanais');
+        /*->withPivot('created_at')*/
+        //se quiser buscar outra coluna na tabela
 
     }
 }
