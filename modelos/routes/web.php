@@ -3,136 +3,120 @@
 use App\Categoria;
 
 Route::get('/', function () {
-    $categorias = Categoria::all();//listar as categorias inseridas//todos os registros da tabela
-    //para acessar cada um deles. utiliza-se o foreach
-    foreach($categorias as $c){
-        echo "id: ". $c->id. ", ";
-        echo "nome: " .$c->nome. "<br>";
-
+    $cats = Categoria::all();
+    foreach ($cats as $cat) {
+        echo "id: $cat->id ";
+        echo "Categoria: $cat->nome <br>"; 
     }
 });
 
 Route::get('/inserir/{nome}', function($nome){
-    $cat = new Categoria();
+    $cat = new Categoria(); 
     $cat->nome = $nome;
-    $cat->save();//para salvar a nova categoria 
-    return redirect('/'); //este comando redireciona diretamente para o comando raiz.. apos a inserção da nova categoria
+    $cat->save();
+    echo "categoria $nome inserida com sucesso!!";
+    return redirect('/');
+});
+Route::get('/categoria/{id}', function($id){
+    $cat = Categoria::find($id);
+    //findOrFail
+        if(isset($cat)){
+            echo "id: $cat->id ";
+            echo "Categoria: $cat->nome <br>"; 
+        }else{
+            echo "Id: $id não foi encontrado";
+        }
 });
 
-Route::get('/categoria/{id}', function($id){
-    $cat = Categoria::find($id);//findOrfail.. retorna o erro de 'pagina não encontrada'
-    if (isset($cat)){
-        echo "id: ".$cat->id. "; ";
-        echo "nome: ".$cat->nome. "<br>";
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
-});
 Route::get('/atualizar/{id}/{nome}', function($id, $nome){
-    $cat = Categoria::find($id);// procura o id solicitado
-    if(isset($cat)){//função para verificar se existe o id solicitado
-        $cat->nome = $nome;
-        $cat->save();//para salvar na base de dados
-        return redirect('/');
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
+    
+    $cat = Categoria::find($id);
+        if(isset($cat)){
+            $cat->nome = $nome; 
+            $cat->save();
+            return redirect('/');
+        }else{
+            echo "Id: $id não foi encontrado";
+        }     
 });
 Route::get('/remover/{id}', function($id){
-    $cat = Categoria::find($id);
-    if(isset($cat)){
-        $cat->delete();//apagar do banco de dados
-        return redirect('/');
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
+
+        $cat = Categoria::find($id);
+            if(isset($cat)){
+                $cat->delete(); 
+                return redirect('/');
+            }else{
+                echo "Id: $id não foi encontrado";
+            } 
 });
 
 Route::get('/categoriapornome/{nome}', function($nome){
-    $categorias = Categoria::where('nome',$nome)->get();//busca utulizando where
-    foreach($categorias as $c){
-        echo "id: ".$c->id. "; ";
-        echo "nome: ".$c->nome. "<br>"; 
-    }
+    $cats = Categoria::where('nome',$nome)->get();
+            foreach ($cats as $cat) {
+                echo "$cat->id ";
+                echo "$cat->nome <br>";
+            }
 });
-
+//maior ou igual 
 Route::get('/categoriaidmaiorque/{id}', function($id){
-    $categorias = Categoria::where('id','>=',$id)->get();//busca utilizando where e utilizando relaçao logica
-    foreach($categorias as $c){
-        echo "id: ".$c->id. "; ";
-        echo "nome: ".$c->nome. "<br>";
-    }
-    $count = Categoria::where('id','>=',$id)->count();//para contar os itens encontrados
-    echo "<h1>Cont: " .$count. "</h1>";
-    $max = Categoria::where('id','>=',$id)->max('id');
-    echo "<h1>Max: " .$max."</h1>";
+    $cats = Categoria::where('id','>=',$id)->get();
+            foreach ($cats as $cat) {
+                echo "$cat->id ";
+                echo "$cat->nome <br>";
+            }
+    $count = Categoria::where('id', '>=', $id)->count();//cont o numero solicitado
+            echo "<h3>Count: $count</h3>";
+    $max = Categoria::where('id', '>=', $id)->max('id');//mostra o id maximo
+            echo "<h3>num max: $max</h3>";
 });
-Route::get('/ids123', function(){
-    // $categorias = Categoria::whereIn('id',[1,2,3])->get();//busca id 1,2,3 utilizando whereIn
-    // $categorias = Categoria::where('id',1)->orWhere('id',2)->orWhere('id',3)->get();//busca id 1,2,3 utilizando orwhere
-    $categorias = Categoria::find([1,2,3]);//busca id 1,2,3 utilizando find
-    foreach($categorias as $c){
-        echo "id: ".$c->id. "; ";
-        echo "nome: ".$c->nome. "<br>";
-    }
+//conjunto de dados
+Route::get('/ids', function(){
+    $cats = Categoria::find([2,3,5]);
+            foreach ($cats as $cat) {
+                echo "$cat->id ";
+                echo "$cat->nome <br>";
+            }
 });
-
-Route::get('/todas', function(){//mostra todas a categorias, ate mesmo as apagadas 
-    $categorias = Categoria::withTrashed()->get();
-    foreach($categorias as $c){
-        echo "id: ".$c->id. "; ";
-        echo "nome: ".$c->nome ;
-        if ($c->trashed()){
-            echo " (apagado)<br>";
-        }else{
-            echo "<br>";
+//buscando registro com itens apagados
+Route::get('/todas', function () {
+    $cats = Categoria::withTrashed()->get();
+    foreach ($cats as $cat) {
+        echo "id: $cat->id ";
+        echo "Categoria: $cat->nome"; 
+        if ($cat->trashed()){
+            echo "(apagado)";
         }
+        echo "<br>";
     }
 });
-
-Route::get('/ver/{id}', function($id){//para ver o item.. msm tendo sido apagado
+//busando apenas um registro apagado
+Route::get('/ver/{id}', function($id){
     $cat = Categoria::withTrashed()->find($id);
-    //$cat = Categoria::withTrashed()->where('id',$id)->get()->first();
-    if(isset($cat)){
-        echo "id: ".$cat->id. "; ";
-        echo "nome: ".$cat->nome; 
-        if ($cat->trashed())
-            echo " (apagado)<br>";
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
+    // $cat = Categoria::withTrashed()->where('id',$id)->get()->first();
+
+            echo "id: $cat->id ";
+            echo "categoria: $cat->nome (apagada)<br>";
+            
 });
 
-Route::get('/apagadas', function(){
-    $categorias = Categoria::onlyTrashed()->get();//somente mostras as apagadas
-    foreach($categorias as $c){
-        echo "id: ".$c->id. "; ";
-        echo "nome: ".$c->nome ;
-        if ($c->trashed()){
-            echo " (apagado)<br>";
-        }else{
-            echo "<br>";
+//buscando registro somente itens apagados
+Route::get('/somenteapagados', function () {
+    $cats = Categoria::onlyTrashed()->get();
+    foreach ($cats as $cat) {
+        echo "id: $cat->id ";
+        echo "Categoria: $cat->nome"; 
+        if ($cat->trashed()){
+            echo "(apagado)";
         }
+        echo "<br>";
     }
 });
 
-Route::get('/restaurar/{id}', function($id){//para restaurar o item apagado
+Route::get('/recuperar/{id}', function($id){
     $cat = Categoria::withTrashed()->find($id);
-    if(isset($cat)){
-        $cat->restore();//edita o registro do deleted_at para null 
-        echo "Categoria Restaurada: ".$cat->id. "<br> ";
-        echo "<a href=\"/\">Lista todas</a>";
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
-});
-
-Route::get('/apagarpermanentemente/{id}', function($id){//outra forma de apagar diretamente o item
-    $cat = Categoria::withTrashed()->find($id);
-    if(isset($cat)){
-        $cat->forceDelete();//força o delete do item, quando ele ja foi apagado mas ainda está no deleted_at
-        return redirect('/todas');
-    }else{
-        echo "<h1>Categoria não encontrada</h1>";
-    }
-});
+        if(isset($cat)){
+            $cat->restore();    
+            echo "id: $cat->id ";
+            echo "categoria: $cat->nome restaurada<br>";
+        }            
+});//forceDelete() apaga e não é possivel restaurar 
