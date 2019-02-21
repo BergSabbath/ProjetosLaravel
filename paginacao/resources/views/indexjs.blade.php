@@ -19,7 +19,7 @@
                     <b> Tabela de Clientes</b>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title" id="cardTitle">
                     </h5>
                     <table class="table table-hover table-bordered" id="tabelaClientes">
                         <thead class="table-primary">
@@ -62,20 +62,22 @@
         <script type="text/javascript">
 
         function getItemProximo(data) {
+            i = data.current_page + 1;
             if (data.last_page == data.current_page)
                 s = '<li class="page-item disabled">';
             else 
                 s = '<li class="page-item">';
-            s += '<a class="page-link" href="#">Próximo</a></li>';
+            s += '<a class="page-link"' + ' pagina="' + i +'" href="javascript:void(0);">Próximo</a></li>';
             return s;  
         }
 
         function getItemAnterior(data) {
+            i = data.current_page - 1;
             if (1 == data.current_page)
                 s = '<li class="page-item disabled">';
             else 
                 s = '<li class="page-item">';
-            s += '<a class="page-link" href="#">Anterior</a></li>';
+            s += '<a class="page-link"' + ' pagina="' + i +'" href="javascript:void(0);">Anterior</a></li>';
             return s;  
         }
 
@@ -84,16 +86,23 @@
                 s = '<li class="page-item active">';
             else 
                 s = '<li class="page-item">';
-            s += '<a class="page-link" href="#">'+ i +'</a></li>';
+            s += '<a class="page-link" ' + ' pagina="' + i +'" href="javascript:void(0);">'+ i +'</a></li>';
             return s;  
         }
 
         function montarPaginator(data) {
             $("#paginator>ul>li").remove();
             $("#paginator>ul").append(getItemAnterior(data))
+            n = 10;
+            if (data.current_page - n/2 <= 1)
+                inicio = 1;
+            else if (data.last_page - data.current_page < n)
+                inicio = data.last_page - n + 1;
+            else
+                inicio = data.current_page - n/2;
             
-            inicio=1;
-            fim=10;
+            fim = inicio + n - 1;
+            
             for(i=inicio;i<=fim;i++) {
                 s = getItem(data,i);
                 $("#paginator>ul").append(s);
@@ -127,11 +136,20 @@
                 console.log(resp);
                 montarTabela(resp);
                 montarPaginator(resp);
+                $("#paginator>ul>li>a").click(function(){
+                    carregarClientes($(this).attr('pagina'));
+                });
+
+                $("#cardTitle").html("Exibindo " + resp.per_page +
+                    " clientes de " + resp.total +
+                    " ( " + resp.from + " a " + resp.to + ")"
+                );
             });
         }
 
             $(function(){
-                carregarClientes(8);
+                carregarClientes(4);
+                
             });
         </script>
     </body>
