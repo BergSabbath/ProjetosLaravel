@@ -10,3 +10,11 @@ Para fazer a table reiniciar a contagem do 1:
 ----------------------------------------------------
 alter table nome_da_tabela auto_increment = 1;
 ******************************************************
+
+Para fazer o truncate table desabilitando a foreign key
+------------------------------------------------------
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE nome_da_tabela1;
+TRUNCATE TABLE nome_da_tabela2;
+SET FOREIGN_KEY_CHECKS = 1;
+******************************************************
